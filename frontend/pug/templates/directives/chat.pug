@@ -1,0 +1,46 @@
+.row
+  .col-xs-12.col-md-12
+
+    .panel.panel-default
+
+      .panel-heading
+        i.glyphicon.glyphicon-comment
+        |   from
+        strong  {{ vm.from.name }}
+        |  to
+        strong  {{ vm.to.name }}
+
+      .panel-body
+
+        .row.msg_container.base_sent
+          .col-md-10.col-xs-10
+            .messages.msg_sent
+              p
+                | that mongodb thing looks good, huh?
+                | tiny master db, and huge document store
+              time(datetime='2009-11-13T20:00') Timothy • 51 min
+          .col-md-2.col-xs-2.avatar
+            img.img-responsive(src='http://static1.squarespace.com/static/545e9de4e4b039195ee9b004/545eaface4b08fe952dd27e1/555243fee4b063682c790787/1431454784341/?format=1000w')
+
+        .row.msg_container.base_received
+          .col-md-2.col-xs-2.avatar
+            img.img-responsive(src='http://static1.squarespace.com/static/545e9de4e4b039195ee9b004/545eaface4b08fe952dd27e1/555243fee4b063682c790787/1431454784341/?format=1000w')
+          .col-md-10.col-xs-10
+            .messages.msg_receive
+              p
+                | that mongodb thing looks good, huh?
+                | tiny master db, and huge document store
+              time(datetime='2009-11-13T20:00') Timothy • 51 min
+
+        .row.msg_container.base_sent(ng-repeat='message in vm.messages')
+          .col-md-2.col-xs-2.avatar
+            img.img-responsive(src='http://static1.squarespace.com/static/545e9de4e4b039195ee9b004/545eaface4b08fe952dd27e1/555243fee4b063682c790787/1431454784341/?format=1000w')
+          .col-md-10.col-xs-10
+            .messages.msg_receive
+              p {{ message }}
+
+      .panel-footer
+        .input-group
+          input.form-control.input-sm(type='text', placeholder='Write your message here...' ng-model='vm.message')
+          span.input-group-btn
+            button.btn.btn-primary.btn-sm(ng-click='vm.sendMessage()') Send

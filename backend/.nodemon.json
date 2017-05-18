@@ -1,0 +1,13 @@
+{
+  "verbose": true,
+  "ignore": [
+    "node_modules"
+  ],
+  "execMap": {
+    "js": "node ./bin/www"
+  },
+  "env": {
+    "NODE_ENV": "development"
+  },
+  "ext": "js json"
+}

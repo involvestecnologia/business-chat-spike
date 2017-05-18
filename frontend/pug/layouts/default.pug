@@ -1,0 +1,33 @@
+doctype html
+html(lang='en')
+  head
+    meta(charset='utf-8')
+    meta(name='viewport' content='initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width')
+    title
+
+    // inject:css
+    // endinject
+    link(href='//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css' rel='stylesheet' integrity='sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u' crossorigin='anonymous')
+    block stylesheets
+
+  body
+    nav.navbar.navbar-default
+      .container-fluid
+        .navbar-header
+          a.navbar-brand(href='#!') Chat Example
+
+    .container
+        block main_content
+
+    script(src='//ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js')
+    script(src='//unpkg.com/angular-ui-router@0.4.2/release/angular-ui-router.min.js')
+    script(src='//cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.1/socket.io.slim.js')
+    script(src='//unpkg.com/angular-socket-io@0.7.0')
+    script(src='//code.jquery.com/jquery-3.2.1.min.js' integrity='sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=' crossorigin='anonymous')
+    script(src='//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js' integrity='sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa' crossorigin='anonymous')
+    block javascripts
+
+    script(src='js/app.js')
+    // inject:js
+    // endinject
+    script(src='js/routes.js')
