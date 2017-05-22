@@ -11,7 +11,14 @@
 
       .state('home', {
         url: '/',
-        templateUrl: 'templates/chats.html',
+        templateUrl: 'templates/home.html',
+        controller: 'HomeController',
+        controllerAs: 'vm',
+      })
+
+      .state('chat', {
+        url: '/chat/:username',
+        templateUrl: 'templates/chat.html',
         controller: 'ChatController',
         controllerAs: 'vm',
       });

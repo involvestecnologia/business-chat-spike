@@ -21,14 +21,30 @@
   ];
   function ChatController(ChatService) {
     var vm = this;
+    vm.message = '';
+
+    function _getMessages() {
+      return ChatService.current.messages.filter(function (message) {
+        var from = message.from._id || message.from;
+        var to = message.to.find(function (t) {
+          return (t._id || t) === vm.to._id;
+        });
+
+        return from === vm.to._id || to === vm.to._id;
+      });
+    }
 
     function _sendMessage() {
-      ChatService.send(vm.from, vm.to, vm.message);
+      ChatService.sendMessage(vm.to, vm.message);
       vm.message = '';
     }
 
-    vm.message = '';
+    function _hasMessage() {
+      return vm.message.length > 0 && vm.message !== ' ';
+    }
+
+    vm.getMessages = _getMessages;
     vm.sendMessage = _sendMessage;
-    vm.messages = ChatService.messages;
+    vm.hasMessage = _hasMessage;
   }
 }(angular));

@@ -1,6 +1,0 @@
-.row(ng-init='vm.requestUsers()')
-  .col.col-md-6(ng-repeat='user in vm.users.data')
-    div(ng-if='$even')
-      chat(from='user' to='vm.users.data[$index + 1]')
-    div(ng-if='$odd')
-      chat(from='user' to='vm.users.data[$index - 1]')

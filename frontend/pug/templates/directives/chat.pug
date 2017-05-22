@@ -10,37 +10,29 @@
         |  to
         strong  {{ vm.to.name }}
 
-      .panel-body
+      .panel-body(style='max-height: 500px; overflow-y: scroll;')
 
-        .row.msg_container.base_sent
-          .col-md-10.col-xs-10
-            .messages.msg_sent
-              p
-                | that mongodb thing looks good, huh?
-                | tiny master db, and huge document store
-              time(datetime='2009-11-13T20:00') Timothy • 51 min
-          .col-md-2.col-xs-2.avatar
-            img.img-responsive(src='http://static1.squarespace.com/static/545e9de4e4b039195ee9b004/545eaface4b08fe952dd27e1/555243fee4b063682c790787/1431454784341/?format=1000w')
+          div(ng-repeat='message in vm.getMessages() track by message._id')
 
-        .row.msg_container.base_received
-          .col-md-2.col-xs-2.avatar
-            img.img-responsive(src='http://static1.squarespace.com/static/545e9de4e4b039195ee9b004/545eaface4b08fe952dd27e1/555243fee4b063682c790787/1431454784341/?format=1000w')
-          .col-md-10.col-xs-10
-            .messages.msg_receive
-              p
-                | that mongodb thing looks good, huh?
-                | tiny master db, and huge document store
-              time(datetime='2009-11-13T20:00') Timothy • 51 min
+            .row.msg_container.base_received(ng-if='(message.from._id || message.from) === vm.to._id')
+              .col-md-10.col-xs-10
+                .messages.msg_receive.pull-right
+                  p {{ message.message }}
+                  time(datetime='{{ message.creation_date }}') {{ message.creation_date | date: 'd/M/yyyy HH:mm' }}
+              .col-md-2.col-xs-2.avatar
+                img.img-responsive(src='https://pbs.twimg.com/profile_images/716749820577366016/WTmgCBW0.jpg')
 
-        .row.msg_container.base_sent(ng-repeat='message in vm.messages')
-          .col-md-2.col-xs-2.avatar
-            img.img-responsive(src='http://static1.squarespace.com/static/545e9de4e4b039195ee9b004/545eaface4b08fe952dd27e1/555243fee4b063682c790787/1431454784341/?format=1000w')
-          .col-md-10.col-xs-10
-            .messages.msg_receive
-              p {{ message }}
+            .row.msg_container.base_sent(ng-if='(message.from._id || message.from) === vm.from._id')
+              .col-md-2.col-xs-2.avatar
+                img.img-responsive(src='https://pbs.twimg.com/profile_images/1980294624/DJT_Headshot_V2_400x400.jpg')
+              .col-md-10.col-xs-10
+                .messages.msg_receive
+                  p {{ message.message }}
+                  time(datetime='{{ message.creation_date }}') {{ message.creation_date | date: 'd/M/yyyy HH:mm' }}
 
       .panel-footer
-        .input-group
-          input.form-control.input-sm(type='text', placeholder='Write your message here...' ng-model='vm.message')
-          span.input-group-btn
-            button.btn.btn-primary.btn-sm(ng-click='vm.sendMessage()') Send
+        form(ng-submit='vm.sendMessage()')
+          .input-group
+            input.form-control.input-sm(type='text', placeholder='Write your message here...' ng-model='vm.message')
+            span.input-group-btn
+              button.btn.btn-primary.btn-sm(type='submit' ng-disabled='!vm.hasMessage()') Send

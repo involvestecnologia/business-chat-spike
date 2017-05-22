@@ -7,3 +7,5 @@ rules:
   no-undef: off
   func-names: off
   no-underscore-dangle: off
+  no-param-reassign: off
+  vars-on-top: off

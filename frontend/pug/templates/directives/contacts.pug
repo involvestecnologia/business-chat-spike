@@ -1,0 +1,12 @@
+.panel.panel-default
+  .panel-heading Online Contacts
+  ul.list-group
+    a.list-group-item(
+      href=''
+      ng-repeat='user in vm.contacts.data'
+      ng-click='vm.selectContact(user)'
+      ng-class='{ active: vm.current.contact._id === user._id }'
+      ng-if='user.name !== vm.current.user.name')
+
+      span.badge {{ user.unread }}
+      | {{ user.name }}

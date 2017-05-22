@@ -1,4 +1,5 @@
 const gulp = require('gulp');
+const webserver = require('gulp-webserver');
 const browserSync = require('browser-sync').create();
 const gutil = require('gulp-util');
 const sass = require('gulp-sass');
@@ -66,6 +67,15 @@ gulp.task('watch', ['default'], (done) => {
 });
 
 gulp.task('serve', ['watch'], () => {
+  gulp.src('./www')
+    .pipe(webserver({
+      host: '0.0.0.0',
+      port: 8080,
+      livereload: true,
+    }));
+});
+
+gulp.task('browserSync', ['watch'], () => {
   browserSync.init({
     server: {
       baseDir: './www',

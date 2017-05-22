@@ -1,0 +1,12 @@
+.row.col.col-md-12
+  form
+    .panel.panel-default
+      .panel-heading Enter your username
+
+      .panel-body
+        .form-group
+          label(for='username') Username
+          input#username.form-control(placeholder='Username' ng-model='vm.username')
+
+      .panel-footer
+        button.btn.btn-primary(type='submit' ng-disabled='!vm.validateUsername()' ng-click='vm.connect()') Connect

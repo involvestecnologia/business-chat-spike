@@ -2,16 +2,21 @@
   angular.module('app.controllers').controller('ChatController', ChatController);
 
   ChatController.$inject = [
+    '$scope',
+    '$stateParams',
     'ChatService',
   ];
-  function ChatController(ChatService) {
+  function ChatController($scope, $stateParams, ChatService) {
     var vm = this;
-    vm.users = ChatService.users;
+    vm.model = ChatService.current;
 
-    function _requestUsers() {
-      ChatService.requestUsers();
-    }
-
-    vm.requestUsers = _requestUsers;
+    ChatService.connect($stateParams.username)
+      .then(ChatService.requestUsers)
+      .then(ChatService.requestMessages)
+      .then(function () {
+        $scope.$on('$destroy', function () {
+          ChatService.disconnect();
+        });
+      });
   }
 }(angular));

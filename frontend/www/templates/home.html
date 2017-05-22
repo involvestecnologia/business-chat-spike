@@ -1,0 +1,17 @@
+
+<div class="row col col-md-12">
+  <form>
+    <div class="panel panel-default">
+      <div class="panel-heading">Enter your username</div>
+      <div class="panel-body">
+        <div class="form-group">
+          <label for="username">Username</label>
+          <input class="form-control" id="username" placeholder="Username" ng-model="vm.username"/>
+        </div>
+      </div>
+      <div class="panel-footer">
+        <button class="btn btn-primary" type="submit" ng-disabled="!vm.validateUsername()" ng-click="vm.connect()">Connect</button>
+      </div>
+    </div>
+  </form>
+</div>

@@ -1,3 +1,4 @@
+const _ = require('lodash');
 const Promise = require('bluebird');
 const User = require('../../models/v1/user');
 
@@ -19,6 +20,15 @@ const UserService = {
   },
 
   findOne: query => User.findOne(query).exec(),
+
+  create: body => new User(body).save(),
+
+  update: async (body) => {
+    const client = await UserService.findOne({ _id: body._id });
+    if (!client) throw new Error(`Client ${body._id} not found`);
+
+    await _.extend(client, body).save();
+  },
 };
 
 module.exports = UserService;
