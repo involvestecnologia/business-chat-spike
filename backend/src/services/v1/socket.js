@@ -112,7 +112,8 @@ SocketService.init = () => {
 
 SocketService.clients = [];
 
-SocketService.getClientByUser = user => SocketService.clients
-    .find(client => _.isEqual(client.user._id, user._id));
+SocketService.getClientByUser = (user) => {
+  return _.find(SocketService.clients, client => _.isEqual(client.user._id.toString(), user._id.toString()));
+};
 
 module.exports = SocketService;

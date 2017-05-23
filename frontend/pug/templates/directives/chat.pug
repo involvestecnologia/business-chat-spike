@@ -9,10 +9,11 @@
         strong  {{ vm.from.name }}
         |  to
         strong  {{ vm.to.name }}
+        | {{ vm.typing }}
 
-      .panel-body(style='max-height: 500px; overflow-y: scroll;')
+      .panel-body#chat-panel-body(style='max-height: 500px; overflow-y: scroll;')
 
-          div(ng-repeat='message in vm.getMessages() track by message._id')
+          div(ng-repeat='message in vm.getMessages() track by message._id' ng-init='vm.scrollDown()')
 
             .row.msg_container.base_received(ng-if='(message.from._id || message.from) === vm.to._id')
               .col-md-10.col-xs-10

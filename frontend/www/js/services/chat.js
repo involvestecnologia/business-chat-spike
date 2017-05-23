@@ -17,6 +17,8 @@
     var EVENTS = {
       UPDATED_USERS: '__updated__users__',
       UPDATED_MESSAGES: '__update__messages__',
+      USER_TYPING: '__user__typing__',
+      USER_STOPPED_TYPING: '__user__stopped__typing__',
     };
 
     function _bindEvents() {
@@ -51,6 +53,14 @@
         });
         var index = _users.data.indexOf(user);
         _users.data.splice(index, 1);
+      });
+
+      _socket.on('typing', function (user) {
+        $rootScope.$broadcast(EVENTS.USER_TYPING, user);
+      });
+
+      _socket.on('stopped-typing', function (user) {
+        $rootScope.$broadcast(EVENTS.USER_STOPPED_TYPING, user);
       });
     }
 

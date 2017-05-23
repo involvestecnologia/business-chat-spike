@@ -17,11 +17,31 @@
   }
 
   ChatController.$inject = [
+    '$scope',
     'ChatService',
+    '$timeout',
   ];
-  function ChatController(ChatService) {
+  function ChatController($scope, ChatService, $timeout) {
+    var typingTimeout = null;
+    var typing = false;
     var vm = this;
     vm.message = '';
+
+    $scope.$watch(function () {
+      return vm.message;
+    }, function () {
+      if (vm.message.length <= 0) return;
+      if (!typing) {
+        ChatService.setTyping(vm.to);
+        typing = true;
+      }
+
+      if (typingTimeout) clearTimeout(typingTimeout);
+      typingTimeout = setTimeout(function () {
+        ChatService.setStoppedTyping(vm.to);
+        typing = false;
+      }, 1000);
+    });
 
     function _getMessages() {
       return ChatService.current.messages.filter(function (message) {
@@ -43,8 +63,17 @@
       return vm.message.length > 0 && vm.message !== ' ';
     }
 
+    function _scrollDown() {
+      var panel = document.querySelector('#chat-panel-body');
+      if (!panel) return;
+      $timeout(function () {
+        panel.scrollTop = panel.scrollHeight;
+      });
+    }
+
     vm.getMessages = _getMessages;
     vm.sendMessage = _sendMessage;
     vm.hasMessage = _hasMessage;
+    vm.scrollDown = _scrollDown;
   }
 }(angular));

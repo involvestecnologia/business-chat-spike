@@ -8,5 +8,5 @@
       ng-class='{ active: vm.current.contact._id === user._id }'
       ng-if='user.name !== vm.current.user.name')
 
-      span.badge {{ user.unread }}
+      span.badge {{ user.typing ? 'Typing' : '' }}
       | {{ user.name }}
